@@ -1,6 +1,6 @@
 # Ynmo Task
 
-#Assumption
+# Assumption
 I assume that the user exposed these api is authenticated and authorized
 
 ## Installation
