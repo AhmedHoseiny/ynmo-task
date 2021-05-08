@@ -1,28 +1,17 @@
-# ./docker/php/Dockerfile
-FROM php:7.2-fpm
+FROM php:7.2
+
+RUN apt-get update -y && apt-get install -y openssl zip unzip git
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN pecl install apcu
+RUN docker-php-ext-install pdo pdo_mysql
 
-RUN apt-get update && \
-apt-get install -y \
-zlib1g-dev && apt-get install -y wget
+WORKDIR /app
 
-RUN docker-php-ext-install zip
-RUN docker-php-ext-enable apcu
-
-
-WORKDIR /usr/src/app
-
-
-COPY ./composer.* /usr/src/app/
-
+COPY . /app
 
 RUN composer install
 
-RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
-#RUN bin/console doctrine:schema:create
+CMD php artisan serve --host=0.0.0.0 --port=8181
 
-
-#RUN php php bin/console assets:install
+EXPOSE 8181
