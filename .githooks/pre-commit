@@ -1,0 +1,7 @@
+composer dump-autoload
+
+./vendor/bin/php-cs-fixer fix --config=.php_cs app/
+
+./vendor/bin/phpcbf --standard=PSR2 --tab-width=4 app/
+
+./vendor/bin/phpcs -n --standard=PSR2 --tab-width=4 --ignore=*/Database/Migrations/* app/
